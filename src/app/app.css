@@ -1,0 +1,14 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+.app-container app-sidebar {
+  width: 220px;
+  background-color: #2f3542;
+  color: white;
+}
+.app-container app-dashboard {
+  flex: 1;
+  background-color: #f1f2f6;
+  padding: 20px;
+}/*# sourceMappingURL=app.css.map */

@@ -1,0 +1,603 @@
+// Variables
+$primary-color: #4f46e5;
+$primary-hover: #4338ca;
+$success-color: #10b981;
+$error-color: #ef4444;
+$warning-color: #f59e0b;
+$background-color: #f8fafc;
+$card-background: #ffffff;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$border-color: #e5e7eb;
+$border-radius: 12px;
+$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+// Main container animation
+:host {
+  animation: slideUp 0.6s ease-out;
+}
+
+// Enhanced service tab styling
+.service-tab {
+  background: linear-gradient(135deg, $card-background 0%, #fafbfc 100%);
+  border: 2px solid $border-color;
+  border-radius: $border-radius;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  // Decorative gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, $success-color, $primary-color);
+    border-radius: $border-radius $border-radius 0 0;
+  }
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+    border-color: $primary-color;
+  }
+  
+  h3 {
+    color: $primary-color;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(79, 70, 229, 0.1);
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: $primary-color;
+      border-radius: 2px;
+    }
+  }
+  
+  // Enhanced provider row styling
+  .provider-row {
+    display: grid;
+    grid-template-columns: 1fr 120px auto;
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: $card-background;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      box-shadow: $shadow;
+      transform: translateX(4px);
+      border-color: $primary-color;
+    }
+    
+    // Row number indicator
+    &::before {
+      content: counter(provider-counter);
+      counter-increment: provider-counter;
+      position: absolute;
+      left: -0.5rem;
+      top: -0.5rem;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, $primary-color, $primary-hover);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      box-shadow: $shadow;
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      
+      &::before {
+        position: static;
+        width: 24px;
+        height: 24px;
+        margin-bottom: 0.5rem;
+      }
+    }
+    
+    // Enhanced label styling
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: $text-primary;
+      font-size: 0.95rem;
+      
+      &:has(input:required)::after,
+      &:has(select:required)::after {
+        content: ' *';
+        color: $error-color;
+        font-weight: 700;
+      }
+    }
+    
+    // Enhanced input and select styling
+    input, select {
+      padding: 0.875rem 1rem;
+      font-size: 1rem;
+      border: 2px solid $border-color;
+      border-radius: 8px;
+      background: $card-background;
+      color: $text-primary;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        transform: translateY(-1px);
+      }
+      
+      &:hover:not(:focus) {
+        border-color: $primary-hover;
+      }
+      
+      &::placeholder {
+        color: $text-secondary;
+      }
+    }
+    
+    // Weight input specific styling
+    input[type="number"] {
+      text-align: center;
+      font-weight: 600;
+      
+      &:valid {
+        border-color: $success-color;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      }
+      
+      &:invalid {
+        border-color: $error-color;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+      }
+    }
+    
+    // Remove button styling
+    .remove-btn {
+      background: linear-gradient(135deg, $error-color, #dc2626);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      
+      &:hover {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        transform: translateY(-2px);
+        box-shadow: $shadow;
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+      
+      // Icon effect
+      &::before {
+        content: '×';
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-right: 0.25rem;
+      }
+    }
+  }
+  
+  // Reset counter for each service tab
+  counter-reset: provider-counter;
+  
+  // Add provider button styling
+  .add-provider-btn {
+    background: linear-gradient(135deg, $success-color, #059669);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    
+    &:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-3px);
+      box-shadow: $shadow-lg;
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+    
+    // Plus icon with animation
+    &::before {
+      content: '+';
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover::before {
+      transform: rotate(180deg);
+    }
+    
+    // Shimmer effect
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: left 0.8s;
+    }
+    
+    &:hover::after {
+      left: 100%;
+    }
+  }
+  
+  // Weight validation indicator
+  .weight-indicator {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    
+    &.valid {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: $success-color;
+      
+      &::before {
+        content: '✓ ';
+        font-weight: 700;
+      }
+    }
+    
+    &.invalid {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: $error-color;
+      
+      &::before {
+        content: '⚠ ';
+        font-weight: 700;
+      }
+    }
+    
+    &.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: $warning-color;
+      
+      &::before {
+        content: '⚡ ';
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Enhanced navigation styling
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid $border-color;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+// Enhanced button styling
+button {
+  position: relative;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  min-width: 140px;
+  
+  // Ripple effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: width 0.6s, height 0.6s;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  
+  &:active::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  // Button content
+  span {
+    position: relative;
+    z-index: 2;
+  }
+  
+  // Primary button (Create)
+  &[type="button"]:not(.secondary):not(.remove-btn):not(.add-provider-btn) {
+    background: linear-gradient(135deg, $success-color 0%, #059669 100%);
+    color: white;
+    box-shadow: $shadow;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: $shadow-lg;
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+      transition: transform 0.1s;
+    }
+    
+    // Success icon
+    &::after {
+      content: '✓';
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-left: 0.5rem;
+      opacity: 0.8;
+    }
+  }
+  
+  // Secondary button (Previous)
+  &.secondary {
+    background: $card-background;
+    color: $text-primary;
+    border: 2px solid $border-color;
+    
+    &:hover {
+      background: $background-color;
+      border-color: $primary-color;
+      color: $primary-color;
+      transform: translateY(-2px);
+      box-shadow: $shadow;
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &::before {
+      background: rgba(79, 70, 229, 0.1);
+    }
+    
+    // Previous icon
+    &::after {
+      content: '←';
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+      opacity: 0.8;
+    }
+  }
+}
+
+// Progress summary
+.progress-summary {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border: 1px solid rgba(79, 70, 229, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  
+  h4 {
+    color: $primary-color;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(79, 70, 229, 0.1);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .label {
+      font-weight: 600;
+      color: $text-primary;
+    }
+    
+    .value {
+      font-weight: 700;
+      color: $primary-color;
+    }
+  }
+}
+
+// Animations
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+// Loading states
+.loading {
+  .provider-row {
+    animation: pulse 2s infinite;
+  }
+}
+
+// Empty state
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: $text-secondary;
+  
+  .icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+  
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: $text-primary;
+  }
+  
+  p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .service-tab {
+    padding: 1.5rem;
+    
+    h3 {
+      font-size: 1.3rem;
+    }
+    
+    .add-provider-btn {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+  
+  button {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-tab {
+    padding: 1rem;
+    
+    h3 {
+      font-size: 1.2rem;
+    }
+    
+    .provider-row {
+      padding: 1rem;
+      gap: 1rem;
+    }
+    
+    .add-provider-btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    min-width: 100px;
+  }
+  
+  .progress-summary {
+    padding: 1rem;
+    
+    .summary-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .service-tab {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    display: none;
+  }
+}

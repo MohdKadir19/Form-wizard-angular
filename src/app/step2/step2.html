@@ -1,0 +1,22 @@
+<h2>Step 2: Select Service Category</h2>
+<form>
+    <label>
+        Select Services
+        <select 
+            multiple 
+            [(ngModel)]="formData.services" 
+            name="services" 
+            (ngModelChange)="formDataChange.emit(formData)">
+            <option *ngFor="let service of serviceOptions" [value]="service">{{ service }}</option>
+        </select>
+    </label>
+
+    <div class="navigation">
+        <button type="button" class="secondary" (click)="previous.emit()">
+            Previous
+        </button>
+        <button type="button" [disabled]="!formData.services.length" (click)="next.emit()">
+            Next
+        </button>
+    </div>
+</form>

@@ -1,0 +1,46 @@
+<h2>Step 3: Select Service Providers</h2>
+
+<div *ngFor="let service of formData.services" class="service-tab">
+    <h3>{{ service }}</h3>
+    <button type="button" class="add-provider-btn" (click)="addProvider(service)">
+        Add Provider
+    </button>
+
+    <div *ngFor="let provider of formData.providers[service] || []; let i = index" class="provider-row">
+        <label>
+            Provider
+            <select 
+                [(ngModel)]="formData.providers[service][i].name" 
+                [name]="service + '_provider_' + i"
+                (ngModelChange)="formDataChange.emit(formData)">
+                <option value="" disabled>Select a provider</option>
+                <option *ngFor="let p of mockProviders[service]" [value]="p">{{ p }}</option>
+            </select>
+        </label>
+
+        <label>
+            % Weight
+            <input 
+                type="number" 
+                min="0" 
+                max="100" 
+                [(ngModel)]="formData.providers[service][i].weight"
+                [name]="service + '_weight_' + i" 
+                placeholder="Enter weight"
+                (ngModelChange)="formDataChange.emit(formData)" />
+        </label>
+
+        <button type="button" class="remove-btn" (click)="removeProvider(service, i)">
+            Remove
+        </button>
+    </div>
+</div>
+
+<div class="navigation">
+    <button type="button" class="secondary" (click)="previous.emit()">
+        Previous
+    </button>
+    <button type="button" (click)="create.emit()">
+        Create
+    </button>
+</div>

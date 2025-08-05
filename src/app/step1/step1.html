@@ -1,0 +1,30 @@
+<h2>Step 1: Create Line of Business</h2>
+<form>
+    <label>
+        LOB Name
+        <input 
+            type="text" 
+            [(ngModel)]="formData.lobName" 
+            name="lobName" 
+            required 
+            placeholder="Enter Line of Business name"
+            (ngModelChange)="formDataChange.emit(formData)" />
+    </label>
+
+    <label>
+        Email ID
+        <input 
+            type="email" 
+            [(ngModel)]="formData.email" 
+            name="email" 
+            required 
+            placeholder="Enter email address"
+            (ngModelChange)="formDataChange.emit(formData)" />
+    </label>
+
+    <div class="navigation">
+        <button type="button" [disabled]="!isValid()" (click)="next.emit()">
+            Next
+        </button>
+    </div>
+</form>

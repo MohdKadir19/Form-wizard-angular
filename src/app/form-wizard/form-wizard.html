@@ -1,0 +1,32 @@
+<div class="form-wizard">
+  <!-- Progress Indicator -->
+  <div class="wizard-progress">
+    <div class="progress-step">
+      <div class="step-circle" [class.active]="step === 1" [class.completed]="step > 1">
+        <span *ngIf="step <= 1">1</span>
+      </div>
+      <div class="step-label" [class.active]="step === 1">Create LOB</div>
+    </div>
+    
+    <div class="progress-step">
+      <div class="step-circle" [class.active]="step === 2" [class.completed]="step > 2">
+        <span *ngIf="step <= 2">2</span>
+      </div>
+      <div class="step-label" [class.active]="step === 2">Select Services</div>
+    </div>
+    
+    <div class="progress-step">
+      <div class="step-circle" [class.active]="step === 3" [class.completed]="step > 3">
+        <span *ngIf="step <= 3">3</span>
+      </div>
+      <div class="step-label" [class.active]="step === 3">Select Providers</div>
+    </div>
+  </div>
+
+  <!-- Step Content -->
+  <div [ngSwitch]="step">
+    <app-step1 *ngSwitchCase="1" [(formData)]="formData" (next)="next()"></app-step1>
+    <app-step2 *ngSwitchCase="2" [(formData)]="formData" (next)="next()" (previous)="previous()"></app-step2>
+    <app-step3 *ngSwitchCase="3" [(formData)]="formData" (previous)="previous()" (create)="create()"></app-step3>
+  </div>
+</div>
